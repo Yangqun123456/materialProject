@@ -59,7 +59,25 @@ export const materialAddDataService = (data) => {
     params.append('xia_2', data.xia_2)
     params.append('username', data.username)
     params.append('material_date', formatDate(data.material_date))
-    return request.post('/api/submit', params, {
+    params.append('height1',data.height1)
+    params.append('height2',data.height2)
+    params.append('height3',data.height3)
+    params.append('height4',data.height4)
+    params.append('height5',data.height5)
+    params.append('height6',data.height6)
+    params.append('height7',data.height7)
+    params.append('height8',data.height8)
+    params.append('small1',data.small1)
+    params.append('small2',data.small2)
+    params.append('small3',data.small3)
+    params.append('small4',data.small4)
+    params.append('big1',data.big1)
+    params.append('big2',data.big2)
+    params.append('big3',data.big3)
+    params.append('big4',data.big4)
+    params.append('input_name',data.input_name)
+    params.append('input_date',formatDate(data.input_date))
+    return request.post('/api/submitAll', params, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -78,12 +96,33 @@ export const materialEditDataService = (data) => {
     params.append('shang_2', data.shang_2)
     params.append('xia_1', data.xia_1)
     params.append('xia_2', data.xia_2)
-    params.append('username', data.username)
     // 检查 data.material_date 的类型
     if (typeof data.material_date === 'string') {
         params.append('material_date', data.material_date)
     } else {
         params.append('material_date', formatDate(data.material_date))
+    }
+    params.append('height1',data.height1)
+    params.append('height2',data.height2)
+    params.append('height3',data.height3)
+    params.append('height4',data.height4)
+    params.append('height5',data.height5)
+    params.append('height6',data.height6)
+    params.append('height7',data.height7)
+    params.append('height8',data.height8)
+    params.append('small1',data.small1)
+    params.append('small2',data.small2)
+    params.append('small3',data.small3)
+    params.append('small4',data.small4)
+    params.append('big1',data.big1)
+    params.append('big2',data.big2)
+    params.append('big3',data.big3)
+    params.append('big4',data.big4)
+    // 检查 data.input_date 的类型
+    if (typeof data.input_date === 'string') {
+        params.append('input_date', data.input_date)
+    } else {
+        params.append('input_date', formatDate(data.input_date))
     }
     return request.post('/api/updateMaterialData', params, {
         headers: {

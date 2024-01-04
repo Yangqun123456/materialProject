@@ -64,7 +64,7 @@ const exportExecl = () => {
   } else {
     const data = selectData.value.map((item) => ({
       杠铃编号: item.material_id,
-      日期: item.material_date,
+      输入序号: item.input_sequence,
       'Q(>4500)': item.Q_number,
       '无微扰频率(MHz) - fπ': item.wu_1,
       '无微扰频率(MHz) - fπ/2': item.wu_2,
@@ -72,7 +72,26 @@ const exportExecl = () => {
       '上微扰频率(MHz) - fp,u,π/2': item.shang_2,
       '下微扰频率(MHz) - fp,d,π': item.xia_1,
       '下微扰频率(MHz) - fp,d,π/2': item.xia_2,
-      登记人: item.username
+      '登记人 - 1': item.username,
+      '日期 - 1': item.material_date,
+      高度1: item.height1,
+      高度2: item.height2,
+      高度3: item.height3,
+      高度4: item.height4,
+      高度5: item.height5,
+      高度6: item.height6,
+      高度7: item.height7,
+      高度8: item.height8,
+      赤道内径小编号1: item.small1,
+      赤道内径小编号2: item.small2,
+      赤道内径小编号3: item.small3,
+      赤道内径小编号4: item.small4,
+      赤道内径大编号1: item.big1,
+      赤道内径大编号2: item.big2,
+      赤道内径大编号3: item.big3,
+      赤道内径大编号4: item.big4,
+      '登记人 - 2': item.input_name,
+      '日期 - 2': item.input_date
     }))
     const ws = utils.json_to_sheet(data)
     const wb = utils.book_new()
@@ -87,6 +106,7 @@ const handlePaginationChanged = (page, size) => {
 const getMaterialList = async () => {
   loading.value = true
   const res = await materialgetAllDataService(params.value)
+  console.log(res.data.data)
   materialList.value = res.data.data
   loading.value = false
 }
@@ -149,7 +169,7 @@ getMaterialList()
     >
       <el-table-column type="selection" width="40" />
       <el-table-column prop="material_id" label="杠铃编号" width="120" fixed sortable />
-      <el-table-column prop="material_date" label="日期" width="180" fixed sortable />
+      <el-table-column prop="input_sequence" label="第几次输入" width="80" fixed sortable />
       <el-table-column prop="Q_number" label="Q(>4500)" width="120" sortable></el-table-column>
       <el-table-column label="无微扰频率(MHz)" header-align="center">
         <el-table-column prop="wu_1" label="fπ" sortable />
@@ -164,6 +184,31 @@ getMaterialList()
         <el-table-column prop="xia_2" label="fp,d,π/2" sortable />
       </el-table-column>
       <el-table-column prop="username" label="登记人" width="120"></el-table-column>
+      <el-table-column prop="material_date" label="日期" width="180" sortable/>
+      <el-table-column label="高度" header-align="center">
+        <el-table-column prop="height1" label="高度1" sortable />
+        <el-table-column prop="height2" label="高度2" sortable />
+        <el-table-column prop="height3" label="高度3" sortable />
+        <el-table-column prop="height4" label="高度4" sortable />
+        <el-table-column prop="height5" label="高度5" sortable />
+        <el-table-column prop="height6" label="高度6" sortable />
+        <el-table-column prop="height7" label="高度7" sortable />
+        <el-table-column prop="height8" label="高度8" sortable />
+      </el-table-column>
+      <el-table-column label="赤道内径小编号" header-align="center">
+        <el-table-column prop="small1" label="编号1" sortable />
+        <el-table-column prop="small2" label="编号2" sortable />
+        <el-table-column prop="small3" label="编号3" sortable />
+        <el-table-column prop="small4" label="编号4" sortable />
+      </el-table-column>
+      <el-table-column label="赤道内径大编号" header-align="center">
+        <el-table-column prop="big1" label="编号1" sortable />
+        <el-table-column prop="big2" label="编号2" sortable />
+        <el-table-column prop="big3" label="编号3" sortable />
+        <el-table-column prop="big4" label="编号4" sortable />
+      </el-table-column>
+      <el-table-column prop="input_name" label="登记人" width="120"></el-table-column>
+      <el-table-column prop="input_date" label="日期" width="180" sortable/>
       <el-table-column label="操作" width="160" fixed="right">
         <template #default="{ row }">
           <el-button
