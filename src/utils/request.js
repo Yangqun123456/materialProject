@@ -2,7 +2,8 @@ import axios from 'axios'
 import { useUserStore } from '@/stores';
 import { ElMessage } from 'element-plus';
 import router from '@/router';
-const baseURL = 'http://127.0.0.1:4004'
+
+const baseURL = ''
 
 const instance = axios.create({
     baseURL,
