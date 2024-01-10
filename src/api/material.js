@@ -102,6 +102,7 @@ export const materialEditDataService = (data) => {
     } else {
         params.append('material_date', formatDate(data.material_date))
     }
+    params.append('username', data.username)
     params.append('height1',data.height1)
     params.append('height2',data.height2)
     params.append('height3',data.height3)
@@ -124,6 +125,7 @@ export const materialEditDataService = (data) => {
     } else {
         params.append('input_date', formatDate(data.input_date))
     }
+    params.append('input_name',data.input_name)
     return request.post('/api/updateMaterialData', params, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
