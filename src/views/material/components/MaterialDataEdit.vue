@@ -36,6 +36,7 @@ const defaultForm = ref({
 })
 const formModel = ref({ ...defaultForm.value })
 const formRef = ref()
+const isEdit = ref(false)
 const rules = {
   material_id: [
     { required: true, message: '请输入杠铃编号', trigger: 'blur' },
@@ -62,48 +63,48 @@ const rules = {
   wu_1: [
     { required: true, message: '请输入无微扰频率 - fπ', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
   wu_2: [
     { required: true, message: '请输入无微扰频率 - fπ/2', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
   shang_1: [
     { required: true, message: '请输入上微扰频率 - fp,u,π', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
   shang_2: [
     { required: true, message: '请输入上微扰频率 - fp,u,π/2', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
   xia_1: [
     { required: true, message: '请输入下微扰频率 - fp,d,π', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
   xia_2: [
     { required: true, message: '请输入下微扰频率 - fp,d,π/2', trigger: 'blur' },
     {
-      pattern: /^\d{1,11}(\.\d{1,2})?$/,
-      message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      pattern: /^\d{1,11}(\.\d{1,4})?$/,
+      message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
     }
   ],
@@ -256,6 +257,7 @@ const onSubmit = async () => {
 }
 const open = (row) => {
   visibleDrawer.value = true
+  isEdit.value = !!row.id
   if (row.id) {
     formModel.value = row
   } else {
@@ -267,11 +269,11 @@ defineExpose({ open })
 <template>
   <el-drawer
     v-model="visibleDrawer"
-    :title="formModel.material_id ? '编辑记录' : '添加记录'"
+    :title="isEdit ? '编辑记录' : '添加记录'"
     size="50%"
   >
     <el-form :model="formModel" :rules="rules" ref="formRef" label-width="100px">
-      <el-form-item label="杠铃编号" prop="material_id">
+      <el-form-item label="杠铃编号" prop="material_id" v-if="!isEdit">
         <el-input v-model="formModel.material_id" placeholder="请输杠铃编号"></el-input>
       </el-form-item>
       <el-form-item label="Q(>4500)" prop="Q_number">
