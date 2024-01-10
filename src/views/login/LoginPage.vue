@@ -11,6 +11,7 @@ const formModel = ref({
   password: '',
   repassword: '',
   identity: '',
+  rememberMe: false
 })
 const rules = {
   username: [
@@ -46,6 +47,13 @@ const userStore = useUserStore()
 const router = useRouter()
 const login = async () => {
   await form.value.validate()
+  if (formModel.value.rememberMe) {
+    localStorage.setItem('username', formModel.value.username)
+    localStorage.setItem('password', formModel.value.password)
+  } else {
+    localStorage.removeItem('username')
+    localStorage.removeItem('password')
+  }
   const res = await userLoginService(formModel.value)
   userStore.setToken(res.data.token)
   userStore.setUserUsername(formModel.value.username)
@@ -57,7 +65,7 @@ watch(isRegister, () => {
     username: '',
     password: '',
     repassword: '',
-    identity: '',
+    identity: ''
   }
 })
 const options = [
@@ -70,6 +78,12 @@ const options = [
     label: '管理员'
   }
 ]
+const startup = () => {
+  formModel.value.username = localStorage.getItem('username') || '';
+  formModel.value.password = localStorage.getItem('password') || '';
+  formModel.value.rememberMe = !!formModel.value.username;
+}
+startup()
 </script>
 
 <template>
@@ -111,7 +125,12 @@ const options = [
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="formModel.identity" clearable placeholder="请选择注册的身份" style="width: 100%">
+          <el-select
+            v-model="formModel.identity"
+            clearable
+            placeholder="请选择注册的身份"
+            style="width: 100%"
+          >
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -151,7 +170,7 @@ const options = [
         </el-form-item>
         <el-form-item class="flex">
           <div class="flex">
-            <el-checkbox>记住我</el-checkbox>
+            <el-checkbox v-model="formModel.rememberMe">记住我</el-checkbox>
             <el-link type="primary" :underline="false">忘记密码？</el-link>
           </div>
         </el-form-item>
