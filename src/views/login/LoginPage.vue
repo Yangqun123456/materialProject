@@ -165,7 +165,7 @@ startup()
   background-color: #fff;
   .bg {
     background:
-      url('@/assets/icon_1.png') no-repeat 60% center / 350px auto,
+      url('@/assets/icon_1.png') no-repeat 40% center / 350px auto,
       url('@/assets/login_bg.jpg') no-repeat center / cover;
     border-radius: 0 20px 20px 0;
   }
