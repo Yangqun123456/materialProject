@@ -10,7 +10,6 @@ const formModel = ref({
   username: '',
   password: '',
   repassword: '',
-  identity: '',
   rememberMe: false
 })
 const rules = {
@@ -68,16 +67,6 @@ watch(isRegister, () => {
     identity: ''
   }
 })
-const options = [
-  {
-    value: 'user',
-    label: '用户'
-  },
-  {
-    value: 'administrator',
-    label: '管理员'
-  }
-]
 const startup = () => {
   formModel.value.username = localStorage.getItem('username') || '';
   formModel.value.password = localStorage.getItem('password') || '';
@@ -123,21 +112,6 @@ startup()
             type="password"
             placeholder="请输入再次密码"
           ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-select
-            v-model="formModel.identity"
-            clearable
-            placeholder="请选择注册的身份"
-            style="width: 100%"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button @click="register" class="button" type="primary" auto-insert-space>
