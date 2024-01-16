@@ -8,7 +8,8 @@ import {
   Crop,
   EditPen,
   SwitchButton,
-  CaretBottom
+  CaretBottom,
+  TurnOff
 } from '@element-plus/icons-vue'
 import avatar from '@/assets/default.png'
 import { useUserStore } from '@/stores'
@@ -75,6 +76,10 @@ const handleCommand = (command) => {
           <el-menu-item index="/user/password">
             <el-icon><EditPen /></el-icon>
             <span>重置密码</span>
+          </el-menu-item>
+          <el-menu-item index="/user/manage" v-if="userStore.user.identity === 'administrator'">
+            <el-icon><TurnOff /></el-icon>
+            <span>用户管理</span>
           </el-menu-item>
         </el-sub-menu>
       </el-menu>

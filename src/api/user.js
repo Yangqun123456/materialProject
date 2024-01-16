@@ -63,3 +63,15 @@ export const userUploadAvatarService = (id, avatar) => {
 
 // 数据：获取所有用户的用户名
 export const usergetAllUserName = () => request.get('/my/getAllUsername')
+
+// 用户：修改用户status
+export const userUpdateStatus = (id, status) => {
+    const params = new URLSearchParams()
+    params.append('id', id)
+    params.append('status', status)
+    return request.post('/my/updateUserStatus', params, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
