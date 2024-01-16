@@ -1,5 +1,5 @@
 <script setup>
-import { materialgetAllNumberData } from '@/api/material.js'
+import { materialGetAllInputSequence } from '@/api/material.js'
 import { usergetAllUserName } from '@/api/user.js'
 import { ref } from 'vue'
 
@@ -13,18 +13,18 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(['update:modelValue'])
-const materialIdList = ref([])
+const materialInputSequence = ref([])
 const usernameList = ref([])
-const getMaterialIdList = async () => {
-  const res = await materialgetAllNumberData()
-  materialIdList.value = res.data.data
+const getAllInputSequence = async () => {
+  const res = await materialGetAllInputSequence()
+  materialInputSequence.value = res.data.data
 }
 const getMaterialUsernameList = async () => {
   const res = await usergetAllUserName()
   usernameList.value = res.data.data
 }
 const getData = () => {
-  if (props.label === '杠铃编号') getMaterialIdList()
+  if (props.label === '输入序号') getAllInputSequence()
   else getMaterialUsernameList()
 }
 getData()
@@ -41,10 +41,10 @@ getData()
       :max-collapse-tags="2"
     >
       <el-option
-        v-for="item in props.label === '杠铃编号' ? materialIdList : usernameList"
-        :key="props.label === '杠铃编号' ? item.material_id : item.username"
-        :label="props.label === '杠铃编号' ? item.material_id : item.username"
-        :value="props.label === '杠铃编号' ? item.material_id : item.username"
+        v-for="item in props.label === '输入序号' ? materialInputSequence : usernameList"
+        :key="props.label === '输入序号' ? item.input_sequence : item.username"
+        :label="props.label === '输入序号' ? item.input_sequence : item.username"
+        :value="props.label === '输入序号' ? item.input_sequence : item.username"
       ></el-option>
     </el-select>
   </el-form-item>

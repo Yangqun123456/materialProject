@@ -20,7 +20,7 @@ const getMaterialList = async () => {
 getMaterialList()
 const exportExecl = () => {
   const data = materialList.value.map((item) => ({
-    杠铃编号: item.material_id,
+    哑铃编号: item.material_id,
     记录数量: item.count
   }))
   const ws = utils.json_to_sheet(data)
@@ -32,12 +32,12 @@ const onEditMaterial = (row) => {
   if (userStore.user.identity === 'administrator') {
     dialog.value.open(row)
   } else {
-    ElMessage.warning('您不是管理员，无法编辑杠铃')
+    ElMessage.warning('您不是管理员，无法编辑哑铃')
   }
 }
 const onDeleteMaterial = async (row) => {
   if (userStore.user.identity === 'administrator') {
-    await ElMessageBox.confirm('你确认要删除该杠铃么', '温馨提示', {
+    await ElMessageBox.confirm('你确认要删除该哑铃么', '温馨提示', {
       type: 'warning',
       confirmButtonText: '确认',
       cancelButtonText: '取消'
@@ -46,7 +46,7 @@ const onDeleteMaterial = async (row) => {
     ElMessage.success('删除成功')
     getMaterialList()
   } else {
-    ElMessage.warning('您不是管理员，无法删除杠铃')
+    ElMessage.warning('您不是管理员，无法删除哑铃')
   }
 }
 const onSuccess = () => {
@@ -58,7 +58,7 @@ const handlePaginationChanged = (page, size) => {
 }
 </script>
 <template>
-  <page-container title="杠铃管理">
+  <page-container title="哑铃管理">
     <template #extra>
       <el-button type="primary" @click="exportExecl">导出表格</el-button>
     </template>
@@ -68,7 +68,7 @@ const handlePaginationChanged = (page, size) => {
       v-loading="loading"
     >
       <el-table-column label="序号" width="100" type="index"></el-table-column>
-      <el-table-column prop="material_id" label="杠铃编号"></el-table-column>
+      <el-table-column prop="material_id" label="哑铃编号"></el-table-column>
       <el-table-column prop="count" label="记录数量"></el-table-column>
       <el-table-column label="操作" width="200">
         <template #default="{ row, $index }">

@@ -8,8 +8,8 @@ const formModel = ref({
 })
 const rules = {
   new_material_id: [
-    { required: true, message: '请输入杠铃编号', trigger: 'blur' },
-    { pattern: /^[a-zA-Z0-9]{1,20}$/, message: '长度在 1 到 20 位字母或数字', trigger: 'blur' }
+    { required: true, message: '请输入哑铃编号', trigger: 'blur' },
+    { pattern: /^[^\s]{1,20}$/, message: '长度在 1 到 20 位非空字符', trigger: 'blur' }
   ]
 }
 const emit = defineEmits(['success'])
@@ -33,7 +33,7 @@ defineExpose({ open })
 <template>
   <el-dialog
     v-model="dialogVisible"
-    :title="formModel.material_id ? '编辑杠铃' : '添加杠铃'"
+    :title="formModel.material_id ? '编辑哑铃' : '添加哑铃'"
     width="30%"
   >
     <el-form
@@ -43,8 +43,8 @@ defineExpose({ open })
       label-width="100px"
       style="padding-right: 30px"
     >
-      <el-form-item label="杠铃编号" prop="new_material_id">
-        <el-input v-model="formModel.new_material_id" placeholder="请输入杠铃编号"></el-input>
+      <el-form-item label="哑铃编号" prop="new_material_id">
+        <el-input v-model="formModel.new_material_id" placeholder="请输入哑铃编号"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>

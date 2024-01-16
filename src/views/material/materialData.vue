@@ -15,7 +15,8 @@ const isSelectAll = ref(false)
 const params = ref({
   pagenum: 1,
   pagesize: 8,
-  materialId: [],
+  material_id: '',
+  input_sequence: [],
   username: []
 })
 const materialEditRef = ref()
@@ -24,14 +25,14 @@ const onAddMaterial = () => {
   if (userStore.user.identity === 'administrator') {
     materialEditRef.value.open({})
   } else {
-    ElMessage.warning('您不是管理员，无法添加杠铃')
+    ElMessage.warning('您不是管理员，无法添加哑铃')
   }
 }
 const onEditMaterialData = (row) => {
   if (userStore.user.identity === 'administrator') {
     materialEditRef.value.open(row)
   } else {
-    ElMessage.warning('您不是管理员，无法编辑杠铃')
+    ElMessage.warning('您不是管理员，无法编辑哑铃')
   }
 }
 
@@ -51,7 +52,7 @@ const onDeleteMaterialData = (row) => {
       }
     })
   } else {
-    ElMessage.warning('您不是管理员，无法删除杠铃')
+    ElMessage.warning('您不是管理员，无法删除哑铃')
   }
 }
 const handleSelectionChange = (val) => {
@@ -63,7 +64,7 @@ const exportExecl = () => {
     ElMessage('未选中任意行')
   } else {
     const data = selectData.value.map((item) => ({
-      杠铃编号: item.material_id,
+      哑铃编号: item.material_id,
       输入序号: item.input_sequence,
       'Q(>4500)': item.Q_number,
       '无微扰频率(MHz) - fπ': item.wu_1,
@@ -96,7 +97,13 @@ const exportExecl = () => {
     const ws = utils.json_to_sheet(data)
     const wb = utils.book_new()
     utils.book_append_sheet(wb, ws, 'Sheet1')
-    writeFile(wb, 'materialData.xlsx')
+    // 获取当前日期
+    const date = new Date()
+    // 格式化日期
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    writeFile(wb, `哑铃数据${year}.${month}.${day}.xlsx`)
   }
 }
 const handlePaginationChanged = (page, size) => {
@@ -106,7 +113,6 @@ const handlePaginationChanged = (page, size) => {
 const getMaterialList = async () => {
   loading.value = true
   const res = await materialgetAllDataService(params.value)
-  console.log(res.data.data)
   materialList.value = res.data.data
   loading.value = false
 }
@@ -144,13 +150,16 @@ const onSuccess = (type) => {
 getMaterialList()
 </script>
 <template>
-  <page-container title="杠铃数据">
+  <page-container title="哑铃数据">
     <template #extra>
       <el-button type="primary" @click="onAddMaterial">添加记录</el-button>
       <el-button type="success" @click="exportExecl">导出表格</el-button>
     </template>
     <el-form inline>
-      <material-select v-model="params.materialId" label="杠铃编号"></material-select>
+      <el-form-item label="哑铃编号">
+        <el-input v-model="params.material_id" placeholder="请输入哑铃编号"></el-input>
+      </el-form-item>
+      <material-select v-model="params.input_sequence" label="输入序号"></material-select>
       <material-select v-model="params.username" label="登记用户"></material-select>
       <el-form-item>
         <el-button type="primary" @click="onSearch">搜素</el-button>
@@ -168,47 +177,139 @@ getMaterialList()
       v-loading="loading"
     >
       <el-table-column type="selection" width="40" />
-      <el-table-column prop="material_id" label="杠铃编号" width="120" fixed sortable />
+      <el-table-column prop="material_id" label="哑铃编号" width="120" fixed sortable />
       <el-table-column prop="input_sequence" label="第几次输入" width="80" fixed sortable />
-      <el-table-column prop="Q_number" label="Q(>4500)" width="120" sortable></el-table-column>
+      <el-table-column prop="Q_number" label="Q(>4500)" width="120" sortable>
+        <template v-slot="{ row }">
+          {{ parseFloat(row.Q_number).toFixed(1) }}
+        </template>
+      </el-table-column>
       <el-table-column label="无微扰频率(MHz)" header-align="center">
-        <el-table-column prop="wu_1" label="fπ" sortable />
-        <el-table-column prop="wu_2" label="fπ/2" sortable />
+        <el-table-column prop="wu_1" label="fπ" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.wu_1).toFixed(4) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="wu_2" label="fπ/2" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.wu_2).toFixed(4) }}
+          </template>
+        </el-table-column>
       </el-table-column>
       <el-table-column label="上微扰频率(MHz)" header-align="center">
-        <el-table-column prop="shang_1" label="fp,u,π" sortable />
-        <el-table-column prop="shang_2" label="fp,u,π/2" sortable />
+        <el-table-column prop="shang_1" label="fp,u,π" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.shang_1).toFixed(4) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="shang_2" label="fp,u,π/2" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.shang_2).toFixed(4) }}
+          </template>
+        </el-table-column>
       </el-table-column>
       <el-table-column label="下微扰频率(MHz)" header-align="center">
-        <el-table-column prop="xia_1" label="fp,d,π" sortable />
-        <el-table-column prop="xia_2" label="fp,d,π/2" sortable />
+        <el-table-column prop="xia_1" label="fp,d,π" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.xia_1).toFixed(4) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="xia_2" label="fp,d,π/2" width="100" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.xia_2).toFixed(4) }}
+          </template>
+        </el-table-column>
       </el-table-column>
-      <el-table-column prop="username" label="登记人" width="120"></el-table-column>
-      <el-table-column prop="material_date" label="日期" width="180" sortable/>
+      <el-table-column prop="username" label="登记人" width="80"></el-table-column>
+      <el-table-column prop="material_date" label="日期" width="180" sortable />
       <el-table-column label="高度" header-align="center">
-        <el-table-column prop="height1" label="高度1" sortable />
-        <el-table-column prop="height2" label="高度2" sortable />
-        <el-table-column prop="height3" label="高度3" sortable />
-        <el-table-column prop="height4" label="高度4" sortable />
-        <el-table-column prop="height5" label="高度5" sortable />
-        <el-table-column prop="height6" label="高度6" sortable />
-        <el-table-column prop="height7" label="高度7" sortable />
-        <el-table-column prop="height8" label="高度8" sortable />
+        <el-table-column prop="height1" label="高度1" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height1).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height2" label="高度2" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height2).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height3" label="高度3" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height3).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height4" label="高度4" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height4).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height5" label="高度5" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height5).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height6" label="高度6" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height6).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height7" label="高度7" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height7).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="height8" label="高度8" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.height8).toFixed(2) }}
+          </template>
+        </el-table-column>
       </el-table-column>
       <el-table-column label="赤道内径小编号" header-align="center">
-        <el-table-column prop="small1" label="编号1" sortable />
-        <el-table-column prop="small2" label="编号2" sortable />
-        <el-table-column prop="small3" label="编号3" sortable />
-        <el-table-column prop="small4" label="编号4" sortable />
+        <el-table-column prop="small1" label="编号1" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.small1).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="small2" label="编号2" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.small2).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="small3" label="编号3" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.small3).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="small4" label="编号4" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.small4).toFixed(2) }}
+          </template>
+        </el-table-column>
       </el-table-column>
       <el-table-column label="赤道内径大编号" header-align="center">
-        <el-table-column prop="big1" label="编号1" sortable />
-        <el-table-column prop="big2" label="编号2" sortable />
-        <el-table-column prop="big3" label="编号3" sortable />
-        <el-table-column prop="big4" label="编号4" sortable />
+        <el-table-column prop="big1" label="编号1" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.big1).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="big2" label="编号2" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.big2).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="big3" label="编号3" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.big3).toFixed(2) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="big4" label="编号4" width="80" sortable>
+          <template v-slot="{ row }">
+            {{ parseFloat(row.big4).toFixed(2) }}
+          </template>
+        </el-table-column>
       </el-table-column>
-      <el-table-column prop="input_name" label="登记人" width="120"></el-table-column>
-      <el-table-column prop="input_date" label="日期" width="180" sortable/>
+      <el-table-column prop="input_name" label="登记人" width="80"></el-table-column>
+      <el-table-column prop="input_date" label="日期" width="180" sortable />
       <el-table-column label="操作" width="160" fixed="right">
         <template #default="{ row }">
           <el-button

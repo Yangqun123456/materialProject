@@ -49,11 +49,11 @@ const handleCommand = (command) => {
       >
         <el-menu-item index="/material/manage">
           <el-icon><Management /></el-icon>
-          <span>杠铃管理</span>
+          <span>哑铃管理</span>
         </el-menu-item>
         <el-menu-item index="/material/data">
           <el-icon><Promotion /></el-icon>
-          <span>杠铃数据</span>
+          <span>哑铃数据</span>
         </el-menu-item>
         <el-menu-item index="/material/analyze">
           <el-icon><DataAnalysis /></el-icon>
@@ -102,7 +102,7 @@ const handleCommand = (command) => {
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>杠铃后台系统 ©2023 Created by yq</el-footer>
+      <el-footer>哑铃后台系统 ©2023 Created by yq</el-footer>
     </el-container>
   </el-container>
 </template>
@@ -113,8 +113,8 @@ const handleCommand = (command) => {
   .el-aside {
     background-color: #232323;
     &__logo {
-      height: 120px;
-      background: url('@/assets/logo_white.png') no-repeat center / 120px auto;
+      height: 150px;
+      background: url('@/assets/icon_1.png') no-repeat center / 150px auto;
     }
     .el-menu {
       border-right: none;

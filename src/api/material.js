@@ -2,8 +2,7 @@ import request from '@/utils/request'
 import { formatDate } from '@/utils/dateFormat'
 
 export const materialgetAllNumberData = () => { return request.get('/api/getAllMaterialNumberData') }
-// export const materialAddService = () => request.post('/api/addMaterial')
-// 管理：修改指定杠铃id值
+// 管理：修改指定哑铃id值
 export const materialEditIdService = (data) => {
     const params = new URLSearchParams()
     params.append('new_material_id', data.new_material_id)
@@ -14,7 +13,7 @@ export const materialEditIdService = (data) => {
         }
     })
 }
-// 管理：删除指定Id杠铃记录信息
+// 管理：删除指定Id哑铃记录信息
 export const materialDeleteService = (material_id) => {
     const params = new URLSearchParams()
     params.append('material_id', material_id)
@@ -25,8 +24,9 @@ export const materialDeleteService = (material_id) => {
     })
 }
 
-// 数据：获取所有杠铃记录信息 parmas: {pagenum: 1, pagesize: 10, materialId: '001', username: 'admin'}
+// 数据：获取所有哑铃记录信息 parmas: {pagenum: 1, pagesize: 10, material_id: 'A002', input_sequence: [], username: []}
 export const materialgetAllDataService = (paramsData) => {
+    console.log(paramsData);
     return request.get('/api/getAllMaterialData', {
         params: paramsData,
         headers: {
@@ -35,7 +35,7 @@ export const materialgetAllDataService = (paramsData) => {
     })
 }
 
-// 数据: 删除指定记录id的杠铃记录信息
+// 数据: 删除指定记录id的哑铃记录信息
 export const materialDeleteDataService = (id) => {
     const params = new URLSearchParams()
     params.append('id', id)
@@ -46,7 +46,7 @@ export const materialDeleteDataService = (id) => {
     })
 }
 
-// 数据：新增杠铃记录信息
+// 数据：新增哑铃记录信息
 export const materialAddDataService = (data) => {
     const params = new URLSearchParams()
     params.append('material_id', data.material_id)
@@ -59,24 +59,24 @@ export const materialAddDataService = (data) => {
     params.append('xia_2', data.xia_2)
     params.append('username', data.username)
     params.append('material_date', formatDate(data.material_date))
-    params.append('height1',data.height1)
-    params.append('height2',data.height2)
-    params.append('height3',data.height3)
-    params.append('height4',data.height4)
-    params.append('height5',data.height5)
-    params.append('height6',data.height6)
-    params.append('height7',data.height7)
-    params.append('height8',data.height8)
-    params.append('small1',data.small1)
-    params.append('small2',data.small2)
-    params.append('small3',data.small3)
-    params.append('small4',data.small4)
-    params.append('big1',data.big1)
-    params.append('big2',data.big2)
-    params.append('big3',data.big3)
-    params.append('big4',data.big4)
-    params.append('input_name',data.input_name)
-    params.append('input_date',formatDate(data.input_date))
+    params.append('height1', data.height1)
+    params.append('height2', data.height2)
+    params.append('height3', data.height3)
+    params.append('height4', data.height4)
+    params.append('height5', data.height5)
+    params.append('height6', data.height6)
+    params.append('height7', data.height7)
+    params.append('height8', data.height8)
+    params.append('small1', data.small1)
+    params.append('small2', data.small2)
+    params.append('small3', data.small3)
+    params.append('small4', data.small4)
+    params.append('big1', data.big1)
+    params.append('big2', data.big2)
+    params.append('big3', data.big3)
+    params.append('big4', data.big4)
+    params.append('input_name', data.input_name)
+    params.append('input_date', formatDate(data.input_date))
     return request.post('/api/submitAll', params, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,7 +84,7 @@ export const materialAddDataService = (data) => {
     })
 }
 
-// 数据：修改指定id杠铃记录信息
+// 数据：修改指定id哑铃记录信息
 export const materialEditDataService = (data) => {
     const params = new URLSearchParams()
     params.append('id', data.id)
@@ -103,29 +103,29 @@ export const materialEditDataService = (data) => {
         params.append('material_date', formatDate(data.material_date))
     }
     params.append('username', data.username)
-    params.append('height1',data.height1)
-    params.append('height2',data.height2)
-    params.append('height3',data.height3)
-    params.append('height4',data.height4)
-    params.append('height5',data.height5)
-    params.append('height6',data.height6)
-    params.append('height7',data.height7)
-    params.append('height8',data.height8)
-    params.append('small1',data.small1)
-    params.append('small2',data.small2)
-    params.append('small3',data.small3)
-    params.append('small4',data.small4)
-    params.append('big1',data.big1)
-    params.append('big2',data.big2)
-    params.append('big3',data.big3)
-    params.append('big4',data.big4)
+    params.append('height1', data.height1)
+    params.append('height2', data.height2)
+    params.append('height3', data.height3)
+    params.append('height4', data.height4)
+    params.append('height5', data.height5)
+    params.append('height6', data.height6)
+    params.append('height7', data.height7)
+    params.append('height8', data.height8)
+    params.append('small1', data.small1)
+    params.append('small2', data.small2)
+    params.append('small3', data.small3)
+    params.append('small4', data.small4)
+    params.append('big1', data.big1)
+    params.append('big2', data.big2)
+    params.append('big3', data.big3)
+    params.append('big4', data.big4)
     // 检查 data.input_date 的类型
     if (typeof data.input_date === 'string') {
         params.append('input_date', data.input_date)
     } else {
         params.append('input_date', formatDate(data.input_date))
     }
-    params.append('input_name',data.input_name)
+    params.append('input_name', data.input_name)
     return request.post('/api/updateMaterialData', params, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -133,3 +133,5 @@ export const materialEditDataService = (data) => {
     })
 }
 
+// 数据：获得所有input_sequence
+export const materialGetAllInputSequence = () => { return request.get('/api/getAllInputSequence') }

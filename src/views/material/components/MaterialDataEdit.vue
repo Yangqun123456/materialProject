@@ -39,8 +39,8 @@ const formRef = ref()
 const isEdit = ref(false)
 const rules = {
   material_id: [
-    { required: true, message: '请输入杠铃编号', trigger: 'blur' },
-    { pattern: /^[a-zA-Z0-9]{1,20}$/, message: '长度在 1 到 20 位字母或数字', trigger: 'blur' }
+    { required: true, message: '请输入哑铃编号', trigger: 'blur' },
+    { pattern: /^[a-zA-Z0-9]{1,20}$/, message: '长度在 1 到 20 位字母或数字', trigger: 'blur' },
   ],
   Q_number: [
     { required: true, message: '请输入Q_number', trigger: 'blur' },
@@ -66,6 +66,16 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
+    },
+    {
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   wu_2: [
@@ -73,6 +83,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -82,6 +101,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   shang_2: [
@@ -89,6 +117,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -98,6 +135,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   xia_2: [
@@ -105,6 +151,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,4})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含四位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 1200 || value > 1400) {
+          callback(new Error('频率必须在 1200 到 1400 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -116,6 +171,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   height2: [
@@ -123,6 +187,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -132,6 +205,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   height4: [
@@ -139,6 +221,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -148,6 +239,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   height6: [
@@ -155,6 +255,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -164,6 +273,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   height8: [
@@ -171,6 +289,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 110 || value > 130) {
+          callback(new Error('高度必须在 110 到 130 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -180,6 +307,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   small2: [
@@ -187,6 +323,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -196,6 +341,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   small4: [
@@ -203,6 +357,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -212,6 +375,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   big2: [
@@ -219,6 +391,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -228,6 +409,15 @@ const rules = {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
       trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur'
     }
   ],
   big4: [
@@ -235,6 +425,15 @@ const rules = {
     {
       pattern: /^\d{1,11}(\.\d{1,2})?$/,
       message: '请输入 1 到 11 位的有效数字，最多包含两位小数',
+      trigger: 'blur'
+    },{
+      validator: (rule, value, callback) => {
+        if (value < 200 || value > 210) {
+          callback(new Error('内径必须在 200 到 210 之间'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur'
     }
   ],
@@ -273,8 +472,8 @@ defineExpose({ open })
     size="50%"
   >
     <el-form :model="formModel" :rules="rules" ref="formRef" label-width="100px">
-      <el-form-item label="杠铃编号" prop="material_id" v-if="!isEdit">
-        <el-input v-model="formModel.material_id" placeholder="请输杠铃编号"></el-input>
+      <el-form-item label="哑铃编号" prop="material_id" v-if="!isEdit">
+        <el-input v-model="formModel.material_id" placeholder="请输哑铃编号"></el-input>
       </el-form-item>
       <el-form-item label="Q(>4500)" prop="Q_number">
         <el-input v-model="formModel.Q_number" placeholder="请输入Q值"></el-input>
